@@ -1,0 +1,272 @@
+CREATE DATABASE dennises_list;
+USE dennises_list;
+CREATE TABLE my_contacts
+(
+    last_name VARCHAR(20)
+    first_name VARCHAR(30)
+    email VARCHAR(50)
+    birthday DATE
+    gender CHAR(1)
+    interests VARCHAR(100)
+);
+
+
+
+
+-- DROP TABLE my_contacts;
+
+INSERT INTO my_contacts
+(last_name, first_name, ..., interests)
+VALUES 
+('Anderson', 'Jillian', ..., 'Friends');
+
+
+INSERT INTO nut_purchases
+(nut_type, dozens, topping, price)
+VALUES
+('jelly', 3, 'sprinkles', 3.50)
+
+
+CREATE TABLE nut_list
+(
+    nut_name VARCHAR(10) NOT NULL
+    nut_type VARCHAR(8) NOT NULL
+    nut_cost DEC(3,2) NOT NULL DEFAULT 1.00
+);
+
+
+SELECT * FROM my_contacts
+WHERE first_name = 'Anne';
+
+
+INSERT INTO my_contacts
+(location)
+VALUES
+('Grover''s Mill');
+
+SELECT * FROM my_contacts
+WHERE
+location = 'Grover''s Mill, NJ';
+
+
+
+SELECT location
+FROM nut_ratings
+WHERE type = 'plain glazed'
+AND
+rating = 10;
+
+
+SELECT drink_name
+FROM drink_info
+WHERE
+calories IS NULL
+
+SELECT * FROM my_contacts
+WHERE location LIKE '%CA';
+
+SELECT drink_name FROM drink_info
+WHERE
+calories BETWEEN 30 AND 60;
+
+SELECT date_name
+FROM black_book
+WHERE
+rating IN ('innovative', 'fabulous', 'delightful', 'pretty good');
+
+-- Use IN instead of multiple OR statements
+
+SELECT date_name
+FROM black_book
+WHERE
+rating NOT IN ('innovative', 'fabulous', 'delightful', 'pretty good');
+
+
+
+SELECT drink_name FROM drink_info
+WHERE NOT carbs BETWEEN 3 AND 5;
+
+SELECT date_name from black_book
+WHERE NOT date_name LIKE 'A%'
+AND NOT date_name LIKE 'B%';
+
+
+DELETE FROM clown_info
+WHERE
+activities = 'dancing';
+
+DELETE FROM nut_ratings
+WHERE location = 'Krispy King' AND rating >= 6;
+
+
+INSERT INTO clown_info
+VALUES
+('Clarabelle', 'Belmont Senior Center', 'F, pink hair, huge flower, blue dress', 'dancing');
+
+
+DELETE FROM clown_info
+WHERE 
+actvities = 'yelling, dancing'
+AND name = 'Clarabelle';
+
+
+
+UPDATE table_name
+SET column_name = newvalue
+WHERE column_name = somevalue;
+
+
+UPDATE clown_info
+SET last_seen = 'Tracys'
+WHERE name = 'Mr. Hobo'
+AND last_seen = 'Dickson Park';
+
+
+UPDATE drink_info
+SET cost = cost + 1
+WHERE
+drink_name = 'Blue Moon'
+OR 
+drink_name = 'Oh My Gosh'
+OR 
+drink_name = 'Lime Fuzz';
+
+
+
+SELECT * FROM fish_info
+WHERE location LIKE '%NJ';
+
+SELECT * FROM 
+
+
+CREATE TABLE my_contacts
+(
+    contact_id INT NOT NULL AUTO_INCREMENT,
+    last_name VARCHAR(20),
+    first_name VARCHAR(30),
+    email VARCHAR(50),
+    birthday DATE,
+    gender CHAR(1),
+    interests VARCHAR(100),
+    PRIMARY KEY (contact_id)
+);
+
+
+SHOW COLUMNS FROM table_name;
+
+SHOW CREATE DATABASE databasename;
+
+SHOW INDEX FROM tablename;
+
+SHOW WARNINGS 
+
+
+ALTER TABLE my_contacts
+ADD COLUMN contact_id INT NOT NULL AUTO_INCREMENT FIRST,
+ADD PRIMARY KEY (contact_id);
+
+CHANGE
+MODIFY
+ADD
+DROP
+
+ALTER TABLE projekts
+RENAME TO porject_list
+
+
+ALTER TABLE porject_list
+CHANGE COLUMN number proj_id INT NOT NULL AUTO_INCREMENT,
+ADD PRIMARY KEY (proj_id);
+
+ALTER TABLE porject_list
+MODIFY COLUMN proj_desc VARCHAR(120);
+
+
+
+ALTER TABLE hooptie
+RENAME TO car_table
+ADD COLUMN car_id INT NOT NULL AUTO_INCREMENT FIRST,
+ADD PRIMARY KEY (car_id),
+ADD COLUMN VIN VARCHAR(17) AFTER car_id,
+CHANGE COLUMN mo model VARCHAR(20),
+MODIFY COLUMN color AFTER model
+MODIFY COLUMN year SIXTH,
+CHANGE COLUMN howmuch price DECIMAL(7,2);
+
+
+
+SELECT RIGHT (location, 2) FROM my_contacts;
+
+SELECT SUBSTRING_INDEX(location, ',', 1) FROM my_contacts;
+
+SELECT UPPER('uSa');
+
+LOWER 
+REVERSE
+LTRIM
+RTRIM
+LENGTH
+
+
+UPDATE my_contacts
+SET state = RIGHT(location, 2);
+
+
+
+UPDATE movie_table SET category = 'drama' where drama = 'T';
+UPDATE movie_table SET category = 'misc' where cartoon = 'T' AND rating <> 'G';
+
+
+UPDATE movie_table
+SET category = 
+CASE
+    WHEN drama = 'T' THEN 'drama'
+    WHEN cartoon = 'T' AND rating = 'G' THEN 'family'
+    WHEN scifi = 'T' AND rating = 'R' THEN 'scifi-r'
+    ELSE 'misc'
+END;
+
+
+SELECT title, category
+FROM movie_table
+WHERE
+title LIKE 'A%'
+AND
+category = 'family'
+ORDER BY title;
+
+SELECT * FROM movie_table
+ORDER BY category, purchased, title;
+
+SELECT title, purchased
+FROM movie_table
+ORDER BY purchased DESC, title ASC;
+
+SELECT SUM(sales)
+FROM cookie_sales
+WHERE first_name = 'Nicole';
+
+AVG(sales)
+MIN(sales)
+MAX(sales)
+COUNT(sale_date)
+
+
+SELCT COUNT(DISTINCT sale_date)
+FROM cookie_sales;
+
+
+SELECT first_name, SUM(sales)
+FROM cookie_sales
+GROUP BY first_name
+ORDER BY SUM(sales) DESC
+LIMIT 2;
+
+
+CREATE TABLE interests (
+    int_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    interest VARCHAR(50) NOT NULL,
+    CONSTRAINT my_contacts_contact_id_fk
+    FOREIGN KEY (contact_id)
+    REFERENCES my_contacts (contact_id)
+);
